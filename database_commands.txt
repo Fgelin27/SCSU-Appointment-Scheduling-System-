@@ -1,0 +1,23 @@
+Login to MySql:		(using default "root" username and "mysql" password)
+	mysql -u root -p
+		mysql
+	
+Create database:	(The db_login.php for the website connects to a db named 'appointment_scheduling_system')
+	CREATE DATABASE appointment_scheduling_system;
+
+Connect to database:
+	USE appointment_scheduling_system;
+
+Create "account" table:		(account_login_authenticate.php uses commands to select from "account", and reads Username, Password, First_name, and Last_name)
+	CREATE TABLE account(AccountID INT AUTO_INCREMENT PRIMARY KEY, Username varchar(255), Password varbinary(255), First_name varchar(255), Last_name varchar(255), Role varchar(255), Available_hours_begin TIME, Available_hours_end TIME, Available_days_begin DATE, Available_days_end DATE);
+	
+Insert into "account" table:
+	account_create.php has a form to create an account by entering Username, Password, First_name, Last_name, and Role	(Password is automatically encrypted using AES_ENCRYPT and the key)
+	
+	Directly in mysql by:
+		INSERT INTO account VALUES ('Username', AES_ENCRYPT('Password', '0CVwf74NxScWWzwanssafFVf9dNdNTEt'), 'FirstName', 'LastName', 'Role', NULL, NULL, NULL, NULL);
+	The values for Username, Password, FirstName, Lastname, and Role need to be replaced. Role can be either "Student", "Professor", "Advisor", "Faculty", or "Tutor".
+	The fields for Available_hours_begin, Available_hours_end, Available_days_begin, Available_days_end will be NULL, and will need to be replaced later if the account is an appointment host.
+	
+View "account" entries:
+	SELECT * FROM account;
