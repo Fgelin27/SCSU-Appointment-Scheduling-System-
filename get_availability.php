@@ -2,7 +2,7 @@
 <?php
 header('Content-Type: application/json');
 
-require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/db.php';
 
 $providerId = filter_input(INPUT_GET, 'provider_id', FILTER_VALIDATE_INT);
 $date = $_GET['date'] ?? '';

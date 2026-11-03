@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit(json_encode(['error' => 'POST requests only.']));
 }
 
-require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/db.php';
 
 $id = filter_input(INPUT_POST, 'availability_id', FILTER_VALIDATE_INT);
 $provider = filter_input(INPUT_POST, 'provider_id', FILTER_VALIDATE_INT);

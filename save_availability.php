@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/db.php';
 
 $providerId = filter_input(INPUT_POST, 'provider_id', FILTER_VALIDATE_INT);
 $date = $_POST['availability_date'] ?? '';
