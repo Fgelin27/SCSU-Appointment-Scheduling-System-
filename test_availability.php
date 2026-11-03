@@ -1,7 +1,7 @@
 
 <?php
-require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/db.php';
 
 echo 'Connected to MySQL successfully.<br>';
-echo 'Database: ' . htmlspecialchars($database);
+echo 'Database: ' . htmlspecialchars($db);
 ?>

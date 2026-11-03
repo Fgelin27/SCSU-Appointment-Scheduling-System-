@@ -1,0 +1,8 @@
+# Local database credentials
+db_login.php
+
+# Temporary files
+tempCodeRunnerFile.php
+
+# macOS
+.DS_Store
