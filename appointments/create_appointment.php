@@ -1,6 +1,15 @@
 
 <?php
 header('Content-Type: application/json');
+session_start();
+
+if (
+    empty($_SESSION['accountID']) ||
+    strtolower(trim($_SESSION['role'] ?? '')) !== 'student'
+) {
+    http_response_code(401);
+    exit(json_encode(['error' => 'Sign in with a student account to book an appointment.']));
+}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
@@ -9,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 require_once __DIR__ . '/../db.php';
 
-$student = filter_input(INPUT_POST, 'student_id', FILTER_VALIDATE_INT);
+$student = (int) $_SESSION['accountID'];
 $provider = filter_input(INPUT_POST, 'provider_id', FILTER_VALIDATE_INT);
 $availability = filter_input(INPUT_POST, 'availability_id', FILTER_VALIDATE_INT);
 $date = $_POST['appointment_date'] ?? '';
@@ -21,9 +30,11 @@ $d = DateTime::createFromFormat('!Y-m-d', $date);
 if (
     !$student || !$provider || !$availability ||
     !$d || $d->format('Y-m-d') !== $date ||
+    $date < date('Y-m-d') ||
     !preg_match('/^(?:[01]\d|2[0-3]):[0-5]\d$/', $start) ||
     !preg_match('/^(?:[01]\d|2[0-3]):[0-5]\d$/', $end) ||
-    $start >= $end
+    $start >= $end ||
+    ($date === date('Y-m-d') && $start <= date('H:i'))
 ) {
     http_response_code(400);
     exit(json_encode(['error' => 'Invalid appointment details.']));
@@ -34,13 +45,16 @@ try {
 
     // Lock the availability record during booking.
     $check = $conn->prepare(
-        "SELECT availability_id
-         FROM availability_periods
-         WHERE availability_id = ?
-           AND provider_id = ?
-           AND availability_date = ?
-           AND start_time <= ?
-           AND end_time >= ?
+                "SELECT availability.availability_id
+                 FROM availability_periods AS availability
+                 JOIN account AS provider_account
+                     ON provider_account.AccountID = availability.provider_id
+                 WHERE availability.availability_id = ?
+                     AND availability.provider_id = ?
+                     AND availability.availability_date = ?
+                     AND availability.start_time <= ?
+                     AND availability.end_time >= ?
+                     AND LOWER(provider_account.Role) <> 'student'
          FOR UPDATE"
     );
 

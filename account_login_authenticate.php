@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 # Connect to mysql database (Requires an already created database with the name in db_login.php)
 require_once 'db_login.php'; #db_login.php stores the database hostname, username, password, and db name
 $key = '0CVwf74NxScWWzwanssafFVf9dNdNTEt'; #$key is used for encrypting the entered password
@@ -27,6 +29,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['accountID'] = $result_row['AccountID'];
         $_SESSION['firstName'] = $result_row['First_name'];
         $_SESSION['lastName'] = $result_row['Last_name'];
+        $_SESSION['role'] = $result_row['Role'];
+        if (strtolower(trim($result_row['Role'])) === 'student') {
+            header('Location: appointments/schedule_apointment.php');
+            exit;
+        }
         echo "Welcome " . $_SESSION['firstName'] . " " .$_SESSION['lastName'] . "!";    # After main page is created, replace with header redirect
         # header("Location: ___.php"); # Redirect after successful login                # and display welcome in main
     } else {
