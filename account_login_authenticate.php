@@ -41,7 +41,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // Redirect providers to the availability management page
-        if (strtolower(trim($result_row['Role'])) === 'provider') {
+        $providerRoles = ['professor', 'advisor', 'faculty', 'tutor'];
+
+        if (in_array(strtolower(trim($result_row['Role'])), $providerRoles)) {
             header('Location: provider/availability.php');
             exit;
         }
