@@ -1,16 +1,25 @@
 
 <?php
+session_start();
+
 header('Content-Type: application/json');
+
+// Verify login session
+if (!isset($_SESSION['accountID'])) {
+    http_response_code(401);
+    exit(json_encode(['error' => 'Not authenticated.']));
+}
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405);
-    echo json_encode(['error' => 'POST requests only.']);
-    exit;
+    exit(json_encode(['error' => 'POST requests only.']));
 }
 
 require_once __DIR__ . '/db.php';
 
-$providerId = filter_input(INPUT_POST, 'provider_id', FILTER_VALIDATE_INT);
+// Use the logged-in account ID instead of trusting POST data
+$providerId = (int) $_SESSION['accountID'];
+
 $date = $_POST['availability_date'] ?? '';
 $start = $_POST['start_time'] ?? '';
 $end = $_POST['end_time'] ?? '';
@@ -21,7 +30,7 @@ $dateValid = $dateObj && $dateObj->format('Y-m-d') === $date;
 $timePattern = '/^(?:[01]\d|2[0-3]):[0-5]\d$/';
 
 if (
-    !$providerId || $providerId < 1 ||
+    $providerId < 1 ||
     !$dateValid ||
     !preg_match($timePattern, $start) ||
     !preg_match($timePattern, $end) ||
@@ -33,7 +42,7 @@ if (
 }
 
 try {
-    // Check for overlapping availability for this provider.
+    // Check for overlapping availability
     $check = $conn->prepare(
         'SELECT availability_id
          FROM availability_periods
@@ -55,6 +64,7 @@ try {
         exit;
     }
 
+    // Insert availability
     $insert = $conn->prepare(
         'INSERT INTO availability_periods
          (provider_id, availability_date, start_time, end_time)
@@ -69,7 +79,9 @@ try {
         'message' => 'Availability saved.',
         'availability_id' => $conn->insert_id
     ]);
+
 } catch (mysqli_sql_exception $e) {
+    error_log($e->getMessage());
     http_response_code(500);
     echo json_encode(['error' => 'Database operation failed.']);
 }

@@ -2,10 +2,11 @@
 session_start();
 
 # Connect to mysql database (Requires an already created database with the name in db_login.php)
-require_once 'db_login.php'; #db_login.php stores the database hostname, username, password, and db name
+session_start();
+require_once 'db.php'; #db_login.php stores the database hostname, username, password, and db name
 $key = '0CVwf74NxScWWzwanssafFVf9dNdNTEt'; #$key is used for encrypting the entered password
-$conn = new mysqli($hn, $un, $pw, $db);
-if($conn -> connect_error) die ("Fatal Error");
+// $conn = new mysqli($hn, $un, $pw, $db);
+// if($conn -> connect_error) die ("Fatal Error");
 
 $query = "SELECT * FROM account";
 $result = $conn -> query($query);
@@ -29,13 +30,24 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['accountID'] = $result_row['AccountID'];
         $_SESSION['firstName'] = $result_row['First_name'];
         $_SESSION['lastName'] = $result_row['Last_name'];
+
+        $_SESSION['lastName'] = $result_row['Last_name'];
         $_SESSION['role'] = $result_row['Role'];
+
+        // Redirect students to the appointment scheduling page
         if (strtolower(trim($result_row['Role'])) === 'student') {
             header('Location: appointments/schedule_apointment.php');
             exit;
         }
-        echo "Welcome " . $_SESSION['firstName'] . " " .$_SESSION['lastName'] . "!";    # After main page is created, replace with header redirect
-        # header("Location: ___.php"); # Redirect after successful login                # and display welcome in main
+
+        // Redirect providers to the availability management page
+        if (strtolower(trim($result_row['Role'])) === 'provider') {
+            header('Location: provider/availability.php');
+            exit;
+        }
+        // After main pages are created, display a welcome message
+        echo "Welcome " . $_SESSION['firstName'] . " " . $_SESSION['lastName'] . "!";
+
     } else {
         echo "An invalid username or password was entered.";
     }
