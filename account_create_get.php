@@ -15,7 +15,11 @@ if(isset($_POST['username'])) {
 
 
     if($conn->query($account_statement)) {
-        echo "New account created successfully";
+        session_start();
+        $_SESSION['account_created'] = "New account created successfully";
+
+        header("Location: account_login.php");
+        exit;
     } else {
         echo "Error: could not create account.";
     }

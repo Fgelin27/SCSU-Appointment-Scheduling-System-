@@ -6,3 +6,6 @@ tempCodeRunnerFile.php
 
 # macOS
 .DS_Store
+
+# Locally stored SCSU logo (not for repository distribution)
+/image/SCSU.png

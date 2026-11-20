@@ -36,7 +36,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Redirect students to the appointment scheduling page
         if (strtolower(trim($result_row['Role'])) === 'student') {
-            header('Location: appointments/schedule_apointment.php');
+            header('Location: appointments/book_appointment.php');
             exit;
         }
 

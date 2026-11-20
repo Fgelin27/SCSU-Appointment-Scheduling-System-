@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit(json_encode(['error' => 'POST requests only.']));
 }
 
-require_once __DIR__ . '/../db.php';
+require_once __DIR__ . '../db.php';
 
 $student = (int) $_SESSION['accountID'];
 $provider = filter_input(INPUT_POST, 'provider_id', FILTER_VALIDATE_INT);

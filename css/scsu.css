@@ -1,0 +1,593 @@
+
+/* ==========================================================================
+   1. SCSU BRAND VARIABLES
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Roboto+Condensed:wght@400;700&display=swap');
+
+:root {
+    --scsu-spirit-red: #CD1041;
+    --scsu-spirit-red-dark: #a30d34;
+    --scsu-granite-black: #000000;
+    --scsu-blizzard-white: #FFFFFF;
+
+    --scsu-silver-gray: #A6B0B7;
+    --scsu-glacier-blue: #718C9A;
+    --scsu-slate-dark: #687882;
+    --scsu-bold-orange: #F58220;
+
+    --bg-page: #F4F5F6;
+    --bg-surface: #FFFFFF;
+    --bg-subtle: #EDEDED;
+    --border-color: #D5D9DC;
+
+    --text-primary: #1A1A1A;
+    --text-muted: #555E65;
+
+    --font-body: 'Roboto', sans-serif;
+    --font-condensed: 'Roboto Condensed', sans-serif;
+
+    --container-max: 1280px;
+    --radius-sharp: 2px;
+    --shadow-card: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+/* ==========================================================================
+   2. BASE STYLING
+   ========================================================================== */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-body);
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   3. NAVIGATION
+   ========================================================================== */
+
+.scsu-navbar {
+    background-color: var(--scsu-granite-black);
+    color: rgb(0, 0, 0);
+    border-bottom: 4px solid var(--scsu-spirit-red);
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.scsu-navbar h2 {
+    color: rgb(0, 0, 0);
+    border: none;
+    margin: 0;
+    font-family: var(--font-condensed);
+}
+
+.scsu-nav-links {
+    display: flex;
+    list-style: none;
+    gap: 25px;
+}
+
+.scsu-nav-links a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+    font-family: var(--font-condensed);
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.scsu-nav-links a:hover,
+.scsu-nav-links a.active {
+    color: var(--scsu-spirit-red);
+}
+
+/* ==========================================================================
+   4. MAIN CONTAINER
+   ========================================================================== */
+
+.container {
+    max-width: var(--container-max);
+    margin: 35px auto;
+    padding: 0 25px;
+}
+
+h1, h2, h3 {
+    font-family: var(--font-condensed);
+    text-transform: uppercase;
+    color: var(--scsu-granite-black);
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 12px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    border-bottom: 3px solid var(--scsu-spirit-red);
+    padding-bottom: 8px;
+    display: inline-block;
+}
+
+.container > p {
+    color: var(--text-muted);
+    margin-bottom: 25px;
+}
+
+/* ==========================================================================
+   5. CARDS
+   ========================================================================== */
+
+.card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-top: 4px solid var(--scsu-granite-black);
+    border-radius: var(--radius-sharp);
+    padding: 25px;
+    box-shadow: var(--shadow-card);
+    margin-bottom: 25px;
+}
+
+.card:first-of-type {
+    border-top-color: var(--scsu-spirit-red);
+}
+
+/* ==========================================================================
+   6. FORMS
+   ========================================================================== */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    align-items: end;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+/* Starts on the first column of the next row */
+.new-row {
+    grid-column: 1;
+}
+.form-group label {
+    display: block;
+    font-family: var(--font-condensed);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    margin-bottom: 7px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 11px 12px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    border: 1px solid var(--scsu-silver-gray);
+    border-radius: var(--radius-sharp);
+    background: rgb(255, 255, 255);
+    color: var(--text-primary);
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: var(--scsu-spirit-red);
+    box-shadow: 0 0 0 2px rgba(205,16,65,0.2);
+}
+
+/* ==========================================================================
+   7. BUTTONS
+   ========================================================================== */
+
+.primary-button,
+.cancel-button,
+.edit-button,
+.delete-button {
+    display: inline-block;
+    font-family: var(--font-condensed);
+    font-size: 0.95rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 10px 18px;
+    border: 2px solid transparent;
+    border-radius: var(--radius-sharp);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.primary-button {
+    background: var(--scsu-spirit-red);
+    color: rgb(255, 255, 255);
+}
+
+.primary-button:hover {
+    background: black;
+    color: rgb(255, 255, 255);
+}
+
+.cancel-button {
+    background: white;
+    color: black;
+    border-color: black;
+}
+
+.cancel-button:hover {
+    background: black;
+    color: white;
+}
+
+.edit-button {
+    background: var(--scsu-glacier-blue);
+    color: white;
+    margin-right: 8px;
+}
+
+.edit-button:hover {
+    background: var(--scsu-slate-dark);
+}
+
+.delete-button {
+    background: var(--scsu-spirit-red);
+    color: white;
+}
+
+.delete-button:hover {
+    background: var(--scsu-spirit-red-dark);
+}
+
+/* ==========================================================================
+   8. STATUS MESSAGES
+   ========================================================================== */
+
+.message {
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: var(--radius-sharp);
+    display: none;
+}
+
+.message.success,
+.message.error {
+    display: block;
+}
+
+.message.success {
+    background: #E5F3E8;
+    color: #216B35;
+    border-left: 4px solid #2E8B45;
+}
+
+.message.error {
+    background: #FCE8E8;
+    color: #A30D34;
+    border-left: 4px solid var(--scsu-spirit-red);
+}
+
+/* ==========================================================================
+   9. AVAILABILITY TABLE
+   ========================================================================== */
+
+.table-container {
+    width: 100%;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    font-size: 0.95rem;
+}
+
+table th {
+    background: var(--scsu-granite-black);
+    color: white;
+    font-family: var(--font-condensed);
+    text-transform: uppercase;
+    text-align: left;
+    padding: 14px;
+    border: 1px solid black;
+}
+
+table td {
+    padding: 14px;
+    border: 1px solid var(--border-color);
+    vertical-align: middle;
+}
+
+table tbody tr:nth-child(even) {
+    background: var(--bg-subtle);
+}
+
+table tbody tr:hover {
+    background: rgba(205,16,65,0.06);
+}
+
+.actions {
+    white-space: nowrap;
+}
+
+/* ==========================================================================
+   10. RESPONSIVE DESIGN
+   ========================================================================== */
+
+@media (max-width: 768px) {
+
+    .container {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .scsu-navbar {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .scsu-nav-links {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .card {
+        padding: 18px;
+    }
+
+    h1 {
+        font-size: 1.7rem;
+    }
+
+    .actions button {
+        margin-bottom: 5px;
+    }
+}
+
+/* Manage Availability heading */
+.container > h1 {
+    color: var(--scsu-granite-black);
+    font-family: 'Roboto Condensed', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: block;
+}
+
+/* Description underneath heading */
+.container > p {
+    color: #555E65;
+    font-size: 1rem;
+    margin-bottom: 25px;
+}
+
+/* Add a red accent underneath the page heading */
+.container > h1::after {
+    content: "";
+    display: block;
+    width: 75px;
+    height: 4px;
+    background-color: #CD1041;
+    margin-top: 10px;
+}
+
+/* Login and account creator page*/
+
+
+.login-container,
+.creator-container {
+    width: 100%;
+    max-width: 700px;
+    margin: 70px auto;
+    padding: 0 25px;
+}
+
+.provider-container {
+    width: 100%;
+    max-width: 1050px;
+    margin: 45px auto;
+    padding: 0 25px;
+}
+
+.login-card,
+.creator-card,
+.provider-card {
+    width: 100%;
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-color);
+    border-top: 4px solid var(--scsu-spirit-red);
+    border-radius: var(--radius-sharp);
+    padding: 40px;
+    box-shadow: var(--shadow-card);
+}
+
+.login-card label,
+.creator-card label,
+.provider-card label {
+    display: block;
+    font-family: var(--font-condensed);
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    margin-bottom: 7px;
+}
+
+.login-card input,
+.creator-card input,
+.provider-card input,
+.creator-card select {
+    display: block;
+    width: 100%;
+    padding: 11px 12px;
+    margin-bottom: 18px;
+    border: 1px solid var(--scsu-silver-gray);
+    border-radius: var(--radius-sharp);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+}
+
+
+.login-card .primary-button,
+.creator-card .primary-button,
+.provider-card .primary-button {
+    display: block;
+    width: 100%;
+    margin-top: 15px;
+    padding: 12px 18px;
+}
+
+.login-card h1,
+.creator-card h1,
+.provider-card h1 {
+    font-size: 1.7rem;
+    margin-bottom: 20px;
+}
+
+.login-card h2,
+.creator-card h2,
+.provider-card h2 {
+    display: block;
+    width: fit-content;
+}
+
+/* Create Account Link */
+
+.create-account-link {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.create-account-link p {
+    color: var(--text-muted);
+    margin-bottom: 8px;
+}
+
+.create-account-link a {
+    color: var(--scsu-spirit-red);
+    font-family: var(--font-condensed);
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+}
+
+.create-account-link a:hover {
+    color: black;
+    text-decoration: underline;
+}
+
+/* PAGE HEADER */
+
+.scsu-header {
+    width: 100%;
+    background-color: white;
+    border-bottom: 4px solid var(--scsu-spirit-red);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+.scsu-header-content {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 18px 25px;
+}
+
+.scsu-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.scsu-logo {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    display: block;
+}
+
+.scsu-brand-text h2 {
+    font-family: var(--font-condensed);
+    font-size: 1.5rem;
+    color: var(--scsu-granite-black);
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.scsu-brand-text p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+@media (max-width: 768px) {
+    .scsu-header-content {
+        padding: 15px;
+    }
+}
+
+/* Student Appointment */
+
+.booking-form-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-start;
+    gap: 12px;
+    margin-top: 22px;
+    flex-wrap: wrap;
+}
+
+.booking-form-grid select:disabled {
+    background-color: #eeeeee;
+    cursor: not-allowed;
+}
+
+.status-message {
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 4px;
+    min-height: 20px;
+}
+
+.status-message:empty {
+    display: none;
+}
+
+.status-message.success {
+    background-color: #e7f4e8;
+    color: #205b29;
+}
+
+.status-message.error {
+    background-color: #fbe9e9;
+    color: #9b2020;
+}
+
+@media (max-width: 800px) {
+    .booking-form-grid {
+        grid-template-columns: 1fr;
+    }
+}
+

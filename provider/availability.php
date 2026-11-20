@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['accountID'])) {
-    header("Location: account_login.php");
+    header("Location: ../account_login.php");
     exit;
 }
 
@@ -10,17 +10,34 @@ $providerId = (int) $_SESSION['accountID'];
 ?>
 
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
     <meta charset = "UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Provider | Availability</title>
+    <link rel="stylesheet" href="../css/scsu.css">
 </head>
 
 <body>
+    <!--SCSU Naviagation -->
+    <!-- <nav class="scsu-navbar"> -->
+    <header class="scsu-header">
+    <div class="scsu-header-content">
 
-    <main class="container">
+        <div class="scsu-brand">
+            <img src="../image/SCSU.png" alt="SCSU logo" class="scsu-logo">
+
+            <div class="scsu-brand-text">
+                <h1>SCSU Appointment Scheduling System</h1>
+            </div>
+        </div>
+
+    </div>
+    </header>
+
+    <main class="container provider-container">
     <h1>Manage Availability</h1>
 
     <p>
@@ -28,7 +45,7 @@ $providerId = (int) $_SESSION['accountID'];
     </p>
     <div id="statusMessage" class="message" role="status" aria-live="polite"></div>
 
-    <section class="card">
+    <section class="provider-card">
         <h2 id="formTitle">Add Availability</h2>
         <form id="availabilityForm">
             <div class="form-grid">
@@ -61,6 +78,9 @@ $providerId = (int) $_SESSION['accountID'];
                             required
                         >
                 </div>
+                
+            </div>
+            <div class="form-grid">
                 <button type="submit" class="primary-button" id="submitButton">
                     Add Availability
                 </button>
@@ -68,11 +88,10 @@ $providerId = (int) $_SESSION['accountID'];
                 <button type="button" class="cancel-button" id="cancelButton" hidden> Cancel Edit
                 </button>
             </div>
-
         </form>
     </section>
 <!-- Previous availability section -->
-    <section class="card">
+    <section class="provider-card">
         <h2>Your Availability</h2>
 
         <div class="table-container">
